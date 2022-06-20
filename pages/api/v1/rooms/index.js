@@ -1,11 +1,10 @@
 import nextConnect from "next-connect";
 
 import { allRooms } from "@controllers/room";
-import dbConnect from "config/db/dbConnect";
+import connectDB from "@config/db/db";
 
 const handler = nextConnect();
-dbConnect();
 
 handler.get(allRooms);
 
-export default handler;
+export default connectDB(handler);
