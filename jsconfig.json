@@ -7,7 +7,8 @@
       "@components/*": ["components/*"],
       "@controllers/*": ["controllers/*"],
       "@styles/*": ["styles/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@models/*": ["models/*"]
     }
   }
 }
