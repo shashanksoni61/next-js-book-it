@@ -1,3 +1,10 @@
+import Homepage from "@components/Homepage";
+import Layout from "@components/UI/Layout";
+
 export default function Home() {
-  return <h1>Hello Next</h1>;
+  return (
+    <Layout>
+      <Homepage />
+    </Layout>
+  );
 }
