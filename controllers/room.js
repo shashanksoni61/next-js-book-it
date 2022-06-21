@@ -9,7 +9,8 @@ import { responseHandler } from "@utils/backend/responseHandler";
 export const allRooms = async (req, res) => {
   try {
     const data = await Room.find();
-    responseHandler(res, 200, true, data, "Get All Rooms Success");
+    const result = { list: data, totalRecords: data.length };
+    responseHandler(res, 200, true, result, "Get All Rooms Success");
   } catch (error) {
     responseHandler(res, 401, false, null, error.message);
   }
@@ -49,8 +50,8 @@ export const getSingleRoom = async (req, res) => {
   }
 };
 
-// desc     Get Room Details
-// route    get /api/v1/rooms/:id
+// desc     Update Room Details
+// route    put /api/v1/rooms/:id
 // access   Pubilc // todo - Make This Route Private
 export const updateRoom = async (req, res) => {
   try {
@@ -65,6 +66,24 @@ export const updateRoom = async (req, res) => {
     });
 
     responseHandler(res, 200, true, updatedRoom, "Room Updated Successfully");
+  } catch (error) {
+    console.log(colors.bgMagenta(error.message));
+    responseHandler(res, 400, false, null, error.message);
+  }
+};
+
+// desc     Delete Room Details
+// route    Delete /api/v1/rooms/:id
+// access   Pubilc // todo - Make This Route Private
+export const deleteRoom = async (req, res) => {
+  try {
+    const room = await Room.findById(req.query.id);
+
+    if (!room) return responseHandler(res, 404, false, null, "Room not found");
+
+    await room.remove();
+
+    responseHandler(res, 200, true, null, "Room Removed Successfully");
   } catch (error) {
     console.log(colors.bgMagenta(error.message));
     responseHandler(res, 400, false, null, error.message);
