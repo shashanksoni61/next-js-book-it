@@ -2,19 +2,35 @@ import colors from "colors";
 
 import Room from "@models/Room";
 import { responseHandler } from "@utils/backend/responseHandler";
+import { searchHelper } from "@utils/backend/searchHelper";
 
 // desc     View All Rooms
 // route    get /api/v1/rooms
 // access   Pubilc
 export const allRooms = async (req, res) => {
   try {
-    const data = await Room.find();
-    const result = { list: data, totalRecords: data.length };
-    responseHandler(res, 200, true, result, "Get All Rooms Success");
+    const aggregateQuery = [];
+    const searchFiled = req.query.search || false;
+
+    if (searchFiled) {
+      aggregateQuery.push(
+        searchHelper(searchFiled, ["name", "pricePerNight", "address"])
+      );
+    }
+
+    const data = searchFiled
+      ? await Room.aggregate(aggregateQuery).collation({
+          locale: "en",
+        })
+      : await Room.find();
+    const result = { totalRecords: data.length, list: data };
+    return responseHandler(res, 200, true, result, "Get All Rooms Success");
   } catch (error) {
     responseHandler(res, 401, false, null, error.message);
   }
 };
+
+// todo - Learn aggregate querying & implement allRooms
 
 // desc     Create New Rooms
 // route    get /api/v1/rooms
