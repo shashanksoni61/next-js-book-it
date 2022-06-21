@@ -8,7 +8,8 @@
       "@controllers/*": ["controllers/*"],
       "@styles/*": ["styles/*"],
       "@utils/*": ["utils/*"],
-      "@models/*": ["models/*"]
+      "@models/*": ["models/*"],
+      "@store/*": ["store/*"]
     }
   }
 }
