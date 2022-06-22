@@ -3,32 +3,34 @@ import colors from "colors";
 import Room from "@models/Room";
 import { responseHandler } from "@utils/backend/responseHandler";
 import { searchHelper } from "@utils/backend/searchHelper";
+import asyncHandler from "middlewares/asyncHandler";
 
 // desc     View All Rooms
 // route    get /api/v1/rooms
 // access   Pubilc
-export const allRooms = async (req, res) => {
-  try {
-    const aggregateQuery = [];
-    const searchFiled = req.query.search || false;
+export const allRooms = asyncHandler(async (req, res) => {
+  const aggregateQuery = [];
+  const searchFiled = req.query.search || false;
 
-    if (searchFiled) {
-      aggregateQuery.push(
-        searchHelper(searchFiled, ["name", "pricePerNight", "address"])
-      );
-    }
-
-    const data = searchFiled
-      ? await Room.aggregate(aggregateQuery).collation({
-          locale: "en",
-        })
-      : await Room.find();
-    const result = { totalRecords: data.length, list: data };
-    return responseHandler(res, 200, true, result, "Get All Rooms Success");
-  } catch (error) {
-    responseHandler(res, 401, false, null, error.message);
+  if (searchFiled) {
+    aggregateQuery.push(
+      searchHelper(searchFiled, ["name", "pricePerNight", "address"])
+    );
   }
-};
+
+  const data = searchFiled
+    ? await Room.aggregate(aggregateQuery).collation({
+        locale: "en",
+      })
+    : await Room.find();
+  const result = { totalRecords: data.length, list: data };
+
+  if (data.length === 0) {
+    return responseHandler(res, 404, true, result, "No Rooms Found");
+  }
+
+  return responseHandler(res, 200, true, result, "Get All Rooms Success");
+});
 
 // todo - Learn aggregate querying & implement allRooms
 
