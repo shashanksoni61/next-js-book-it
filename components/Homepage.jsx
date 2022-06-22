@@ -43,7 +43,7 @@ const Homepage = () => {
                 />
                 <div className="card-body d-flex flex-column">
                   <h5 className="card-title">
-                    <Link href={`/room/${item._id}`}>
+                    <Link href={`/rooms/${item._id}`}>
                       <a>{item.name}</a>
                     </Link>
                   </h5>
@@ -65,7 +65,7 @@ const Homepage = () => {
                   </div>
 
                   <button className="btn btn-block view-btn">
-                    <Link href={`/room/${item._id}`}>View Details</Link>
+                    <Link href={`/rooms/${item._id}`}>View Details</Link>
                   </button>
                 </div>
               </div>
