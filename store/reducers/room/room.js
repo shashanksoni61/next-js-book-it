@@ -30,8 +30,11 @@ export const roomReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        rooms: action.payload,
-        errorMsg: "",
+        rooms: {
+          list: [],
+          totalRecords: 0,
+        },
+        errorMsg: action.payload,
       };
 
     case actionLabels.CLEAR_ROOM_ERROR:
