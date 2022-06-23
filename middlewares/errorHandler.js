@@ -10,6 +10,16 @@ export const objectIdErrorHandler = (req, res, next) => {
 };
 
 export const errorMiddleware = (err, req, res, next) => {
+  let message = err.message;
+
+  if (err.name === "ValidationError") {
+    message = Object.values(err.errors).map((value) => value.message)?.[0];
+  }
+
+  if (err.name === "CastError") {
+    message = "Invalid Id";
+  }
+
   console.log(
     colors.bgMagenta({
       error: {
@@ -19,5 +29,5 @@ export const errorMiddleware = (err, req, res, next) => {
       },
     })
   );
-  responseHandler(res, 400, false, null, err.message);
+  responseHandler(res, 400, false, null, message);
 };
