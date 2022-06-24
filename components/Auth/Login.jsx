@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { signIn } from "next-auth/react";
 import { Alert } from "react-bootstrap";
 import ButtonLoader from "@components/UI/ButtonLoader";
+import Link from "next/link";
 
 const Login = () => {
   const router = useRouter();
@@ -112,9 +113,11 @@ const Login = () => {
               {loading ? <ButtonLoader /> : "LOGIN"}
             </button>
 
-            <a href="#" className="float-right mt-3">
-              New User?
-            </a>
+            <Link href={"/register"}>
+              <a href="" className="float-right mt-3">
+                New User?
+              </a>
+            </Link>
           </form>
         </div>
       </div>
