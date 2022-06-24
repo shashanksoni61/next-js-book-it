@@ -275,11 +275,12 @@ nav {
 }
 
 .view-btn {
-  background-color: #e61e4d;
+  background-color: #e61e4d !important;
 }
 
 .view-btn a {
   color: white;
+  text-decoration: none;
 }
 
 .card-img-top {

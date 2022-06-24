@@ -22,12 +22,12 @@ const Homepage = () => {
 
   return (
     <section id="rooms" className="container mt-5">
-      <h2 className="mb-3 ml-2 stays-heading">Stays in New York</h2>
+      {/* <h2 className="mb-3 ml-2 stays-heading">Select Rooms To Book</h2> */}
 
-      <a href="#" className="ml-2 back-to-search">
+      <p href="#" className="ml-2 back-to-search">
         {" "}
-        <i className="fa fa-arrow-left"></i> Back to Search
-      </a>
+        Select Rooms To Book
+      </p>
       <div className="row">
         {rooms &&
           rooms?.list &&
