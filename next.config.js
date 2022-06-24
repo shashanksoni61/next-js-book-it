@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   env: {
     MONGO_URI: "mongodb://localhost:27017/book-it",
+    NEXTAUTH_URL: "http://localhost.com:3000/api/v1/auth",
   },
   images: {
     domains: ["res.cloudinary.com"],
