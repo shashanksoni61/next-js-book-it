@@ -43,3 +43,16 @@ export const registerUser = asyncHandler(async (req, res) => {
     "Account Registered Successfull"
   );
 });
+
+// desc     Get Current user Profile
+// route    get /api/v1/auth/me
+// access   Private
+
+export const currentUserProfile = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+  if (!user) {
+    console.log(colors.red("Coming from currentUserProfile "));
+  }
+
+  responseHandler(res, 200, true, user, "Success");
+});
